@@ -32,7 +32,18 @@ local plugins = {
       }
     },
   },
--- Nice, Noise, Notice!
+
+  {
+    'nvimdev/lspsaga.nvim',
+    config = function()
+        require('lspsaga').setup({})
+    end,
+    dependencies = {
+        'nvim-treesitter/nvim-treesitter', -- optional
+        'nvim-tree/nvim-web-devicons',     -- optional
+    }
+  },
+  -- Nice, Noise, Notice!
   {
     "folke/noice.nvim",
     event = "VeryLazy",
@@ -74,7 +85,7 @@ local plugins = {
           cwd = '${workspaceFolder}',
           stopOnEntry = false,
         },
-      }   
+      }
     end
   },
   {
@@ -126,6 +137,7 @@ local plugins = {
   -- nu highlighting
   'LhKipp/nvim-nu',
   'jose-elias-alvarez/null-ls.nvim',
+  "nvim-neotest/nvim-nio",
 
   {
     "williamboman/mason.nvim",
@@ -145,3 +157,4 @@ local plugins = {
 }
 
 return plugins
+
