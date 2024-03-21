@@ -19,3 +19,12 @@ end
 dofile(vim.g.base46_cache .. "defaults")
 vim.opt.rtp:prepend(lazypath)
 require "plugins"
+
+-- Highlight trailing whitespace
+vim.cmd('highlight ExtraWhitespace ctermbg=red guibg=red')
+vim.cmd('match ExtraWhitespace /\\s\\+$/')
+
+-- Define a command to strip trailing whitespace
+vim.cmd('command! -bar StripWhiteSpace %s/\\s\\+$//e')
+
+
