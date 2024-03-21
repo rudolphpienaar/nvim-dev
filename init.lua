@@ -18,7 +18,9 @@ end
 
 dofile(vim.g.base46_cache .. "defaults")
 vim.opt.rtp:prepend(lazypath)
-require "plugins"
+local plugins = require "plugins"
+
+require('lazy').setup(plugins)
 
 -- Highlight trailing whitespace
 vim.cmd('highlight ExtraWhitespace ctermbg=red guibg=red')
