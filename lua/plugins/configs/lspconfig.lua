@@ -11,17 +11,6 @@ M.on_attach = function(client, bufnr)
   if client.server_capabilities.signatureHelpProvider then
     require("nvchad.signature").setup(client)
   end
-
-  -- Disable virtual_text diagnostics
-  vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-    vim.lsp.diagnostic.on_publish_diagnostics, {
-      virtual_text = false, -- Disable inline diagnostics
-      signs = true,
-      underline = true,
-      update_in_insert = false,
-    }
-  )
-
 end
 
 -- disable semantic tokens
