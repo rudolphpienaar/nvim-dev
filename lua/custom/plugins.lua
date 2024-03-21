@@ -100,7 +100,7 @@ local plugins = {
       require("dap-python").setup(path)
       require("core.utils").load_mappings("dap_python")
     end,
-  },  
+  },
   {
     "jose-elias-alvarez/null-ls.nvim",
     event = "VeryLazy",
@@ -153,8 +153,47 @@ local plugins = {
         "debugpy"
       }
     }
-  }
+  },
+  {
+    "stevearc/aerial.nvim",
+    lazy = true,
+    cmd = {"AerialPrev", "AerialNext", "AerialToggle"},
+    keys = {
+      {"<leader>a", "<cmd>AerialToggle!<CR>", desc = "Toggle Aerial"}
+    },
+    opts = {
+
+    },
+    -- config = function()
+    --   require("aerial").setup({
+    --     -- optionally use on_attach to set keymaps when aerial has attached to a buffer
+    --     on_attach = function(bufnr)
+    --       -- Jump forwards/backwards with '{' and '}'
+    --       vim.keymap.set("n", "{", "<cmd>AerialPrev<CR>", { buffer = bufnr })
+    --       vim.keymap.set("n", "}", "<cmd>AerialNext<CR>", { buffer = bufnr })
+    --     end,
+    --   })
+    --
+    --   -- You probably also want to set a keymap to toggle aerial
+    --   vim.keymap.set("n", "<leader>a", "<cmd>AerialToggle!<CR>")
+    -- end,
+  },
+  {
+    "hedyhli/outline.nvim",
+    lazy = true,
+    cmd = { "Outline", "OutlineOpen" },
+    keys = { -- Example mapping to toggle outline
+      { "<leader>o", "<cmd>Outline<CR>", desc = "Toggle outline" },
+    },
+    opts = {
+      -- Your setup opts here
+    },
+  },
+
+
 }
+
+
 
 return plugins
 
