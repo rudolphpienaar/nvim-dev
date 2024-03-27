@@ -6,7 +6,7 @@ vim.keymap.set('n', '<leader>u', ':undo<CR>')
 
 -- Define the keybinding to append a specific string to the current line
 vim.keymap.set('n', '<C-a>', [[:lua vim.fn.append('.', ',rudolph.pienaar@childrens.harvard.edu')<CR>]], { noremap = true, silent = true })
-vim.keymap.set('n', '<Leader>j', '<ESC>v4jgq' )
+vim.keymap.set('n', '<Leader>j', 'gqap' )
 vim.api.nvim_set_keymap('n', '<leader>at', ':ALEToggle<CR>', {noremap = true, silent = true})
 
 vim.opt.clipboard = "unnamedplus"
