@@ -48,6 +48,12 @@ local plugins = {
     "folke/noice.nvim",
     event = "VeryLazy",
     opts = {
+      lsp = {
+        progress = {
+          enabled = false,
+        },
+      },
+      debug = true,
       -- add any options here
     },
     dependencies = {
@@ -102,12 +108,19 @@ local plugins = {
     end,
   },
   {
-    "jose-elias-alvarez/null-ls.nvim",
+    "nvimtools/none-ls.nvim",
     event = "VeryLazy",
     opts = function()
       return require "custom.configs.null-ls"
     end,
   },
+  -- {
+  --   "jose-elias-alvarez/null-ls.nvim",
+  --   event = "VeryLazy",
+  --   opts = function()
+  --     return require "custom.configs.null-ls"
+  --   end,
+  -- },
   {
     "neovim/nvim-lspconfig",
     config = function()
@@ -136,13 +149,17 @@ local plugins = {
 
   -- nu highlighting
   'LhKipp/nvim-nu',
-  'jose-elias-alvarez/null-ls.nvim',
+  -- 'jose-elias-alvarez/null-ls.nvim',
   "nvim-neotest/nvim-nio",
 
   {
     "williamboman/mason.nvim",
     opts = {
       ensure_installed = {
+        "eslint-lsp",
+        "prettierd",
+        "tailwindcss-language-server",
+        "typescript-language-server",
         "black",
         "clangd",
         "clang-format",
@@ -153,6 +170,33 @@ local plugins = {
         "debugpy"
       }
     }
+  },
+  {
+    "windwp/nvim-ts-autotag",
+    ft = {
+      "javascript",
+      "javascriptreact",
+      "typescript",
+      "typescriptreact",
+    },
+    config = function()
+      require("nvim-ts-autotag").setup()
+    end
+  },
+  {
+    "nvim-treesitter/nvim-treesitter",
+    opts = function()
+      opts = require "plugins.configs.treesitter"
+      opts.ensure_installed = {
+        "lua",
+        "javascript",
+        "typescript",
+        "tsx",
+        "go",
+        "rust"
+      }
+      return opts
+    end
   },
   {
     "stevearc/aerial.nvim",

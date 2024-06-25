@@ -4,6 +4,21 @@ local capabilities = base.capabilities
 
 local lspconfig = require("lspconfig")
 
+lspconfig.tsserver.setup({
+  on_attach = on_attach,
+  capabilities = capabilities
+})
+
+lspconfig.tailwindcss.setup({
+  on_attach = on_attach,
+  capabilities = capabilities
+})
+
+lspconfig.eslint.setup({
+  on_attach = on_attach,
+  capabilities = capabilities
+})
+
 lspconfig.clangd.setup {
   on_attach = function(client, bufnr)
     client.server_capabilities.signatureHelpProvider = false
