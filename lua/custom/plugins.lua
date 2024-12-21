@@ -255,10 +255,34 @@ local plugins = {
     },
   },
 
+  {
+    "brianhuster/live-preview.nvim",
+    dependencies = {
+      "brianhuster/autosave.nvim",
+      -- Pick one of these pickers:
+      "nvim-telescope/telescope.nvim",
+      -- "ibhagwan/fzf-lua",
+      -- "echasnovski/mini.pick",
+    },
+    opts = {},
+    event = "VeryLazy",  -- This is optional but recommended for lazy loading
+  },
+
+  {
+    'tigion/nvim-asciidoc-preview',
+    ft = { 'asciidoc' },
+    build = 'cd server && npm install',
+    opts = {
+      server = {
+        converter = 'js'
+      },
+      preview = {
+        position = 'current',
+      },
+    },
+  }
 
 }
-
-
 
 return plugins
 
