@@ -44,27 +44,69 @@ local plugins = {
     }
   },
   -- Nice, Noise, Notice!
-  {
-    "folke/noice.nvim",
-    event = "VeryLazy",
-    opts = {
-      lsp = {
-        progress = {
-          enabled = false,
-        },
+  -- {
+  --   "folke/noice.nvim",
+  --   event = "VeryLazy",
+  --   opts = {
+  --     lsp = {
+  --       progress = {
+  --         enabled = false,
+  --       },
+  --     },
+  --     debug = true,
+  --     -- add any options here
+  --   },
+  --   dependencies = {
+  --     -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+  --     "MunifTanjim/nui.nvim",
+  --     -- OPTIONAL:
+  --     --   `nvim-notify` is only needed, if you want to use the notification view.
+  --     --   If not available, we use `mini` as the fallback
+  --     "rcarriga/nvim-notify",
+  --     }
+  -- },
+  --
+{
+  "folke/noice.nvim",
+  event = "VeryLazy",
+  opts = {
+    views = {
+      notify = {
+        replace = true, -- Use nvim-notify for notifications
       },
-      debug = true,
-      -- add any options here
     },
-    dependencies = {
-      -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
-      "MunifTanjim/nui.nvim",
-      -- OPTIONAL:
-      --   `nvim-notify` is only needed, if you want to use the notification view.
-      --   If not available, we use `mini` as the fallback
-      "rcarriga/nvim-notify",
-      }
+    lsp = {
+      progress = {
+        view = "notify",
+      },
+      override = {
+        ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+        ["vim.lsp.util.stylize_markdown"] = true,
+        ["cmp.entry.get_documentation"] = true,
+      },
+    },
+    presets = {
+      lsp_doc_border = true,
+    },
+    routes = {
+      {
+        filter = { event = "msg_show" },
+        opts = { skip = true } -- Avoids UI updates in fast event contexts
+      },
+      {
+        filter = { event = "lsp", kind = "progress" },
+        opts = { skip = true } -- Prevents LSP progress events from breaking UI
+      },
+    },
+    throttle = 200, -- Reduce UI update frequency (Default is too fast)
   },
+  dependencies = {
+    "MunifTanjim/nui.nvim",
+    "rcarriga/nvim-notify",
+  }
+},
+
+
   { "nvim-neotest/nvim-nio" },
   { "folke/neodev.nvim", opts = {} },
   {
