@@ -18,7 +18,7 @@ if not configs.ruff then
 end
 
 -- Setup TypeScript, Tailwind, and ESLint
-lspconfig.tsserver.setup({
+lspconfig.ts_ls.setup({
     on_attach = on_attach,
     capabilities = capabilities
 })
