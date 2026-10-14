@@ -247,19 +247,36 @@ local plugins = {
     end
   },
   {
+    -- nvim-treesitter "main": the master branch was archived in 2025-05 and
+    -- its queries break against the parsers neovim 0.12 ships (markdown:
+    -- "attempt to call method 'range' (a nil value)"). main has no
+    -- configs/modules API: setup(), install(), and vim.treesitter.start()
+    -- per buffer. Needs the tree-sitter CLI and a C compiler to build parsers.
     "nvim-treesitter/nvim-treesitter",
-    opts = function()
-      opts = require "plugins.configs.treesitter"
-      opts.ensure_installed = {
-        "lua",
-        "javascript",
-        "typescript",
-        "tsx",
-        "go",
-        "rust"
+    branch = "main",
+    build = ":TSUpdate",
+    config = function()
+      dofile(vim.g.base46_cache .. "syntax")
+      local ts = require "nvim-treesitter"
+      ts.setup {}
+      ts.install {
+        "lua", "vim", "vimdoc", "query",
+        "markdown", "markdown_inline",
+        "javascript", "typescript", "tsx", "json", "html", "css",
+        "go", "rust", "python", "bash", "c", "yaml", "toml",
       }
-      return opts
-    end
+      vim.api.nvim_create_autocmd("FileType", {
+        group = vim.api.nvim_create_augroup("custom_treesitter", { clear = true }),
+        callback = function(ev)
+          -- no parser for this filetype: fall back to regex syntax, quietly
+          if pcall(vim.treesitter.start, ev.buf) then
+            vim.bo[ev.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+          end
+        end,
+      })
+      -- the buffer that triggered this load already had its FileType event
+      pcall(vim.treesitter.start)
+    end,
   },
   {
     "stevearc/aerial.nvim",
